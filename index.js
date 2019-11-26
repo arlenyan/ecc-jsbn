@@ -1,6 +1,6 @@
 "use strict";
 
-const crypto = require("crypto");
+const { randomBytes } = require("./lib/random-bytes")
 const { BigInteger } = require("jsbn");
 
 exports.ECCurves = require("./lib/sec.js");
@@ -31,7 +31,7 @@ exports.ECKey = function(curve, key, isPublic) {
     }
   } else {
     var n1 = n.subtract(BigInteger.ONE);
-    var r = new BigInteger(crypto.randomBytes(n.bitLength()));
+    var r = new BigInteger(randomBytes(n.bitLength()));
     priv = r.mod(n1).add(BigInteger.ONE);
     this.P = c.getG().multiply(priv);
   }
